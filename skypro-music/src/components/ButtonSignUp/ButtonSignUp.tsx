@@ -3,11 +3,11 @@ import Link from "next/link";
 import styles from "./ButtonSignUp.module.css"
 import { useRouter } from "next/navigation";
 
-type ButtonSignUp = {
+type ButtonSignUpType = {
   text: string;
 };
 
-export default function ButtonSignUp({ text }: ButtonSignUp) {
+export default function ButtonSignUp({ text }: ButtonSignUpType) {
   const router = useRouter()
 
   return (

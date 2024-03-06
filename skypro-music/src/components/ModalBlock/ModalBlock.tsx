@@ -1,9 +1,9 @@
 import styles from "./ModalBlock.module.css";
 
-type ModalBlock = {
-  children: any
+type ModalBlockType = {
+  children: string
 }
 
-export default function ModalBlock({ children }: ModalBlock) {
+export default function ModalBlock({ children }: ModalBlockType) {
   return <div className={styles.modalBlock}>{children}</div>;
 }

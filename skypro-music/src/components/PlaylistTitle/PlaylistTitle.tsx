@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styles from "./PlaylistTitle.module.css";
+import SVG from "../SVG/SVG";
 
 export default function PlaylistTitle() {
   return (
@@ -8,9 +9,7 @@ export default function PlaylistTitle() {
       <div className={classNames(styles.playlistTitleCol, styles.col02)}>Исполнитель</div>
       <div className={classNames(styles.playlistTitleCol, styles.col03)}>Альбом</div>
       <div className={classNames(styles.playlistTitleCol, styles.col04)}>
-        <svg className={styles.playlistTitleSvg}>
-          <use xlinkHref="img/icon/sprite.svg#icon-watch" />
-        </svg>
+        <SVG className={styles.playlistTitleSvg} icon="icon-watch" />
       </div>
     </div>
   )

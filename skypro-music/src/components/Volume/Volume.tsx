@@ -1,14 +1,13 @@
 import classNames from "classnames"
 import styles from "../Volume/Volume.module.css"
+import SVG from "../SVG/SVG"
 
 export default function Volume() {
   return (
     <div className={styles.volumeBlock}>
       <div className={styles.volumeContent}>
         <div className={styles.volumeImage}>
-          <svg className={styles.volumeSvg}>
-            <use xlinkHref="img/icon/sprite.svg#icon-volume" />
-          </svg>
+          <SVG className={styles.volumeSvg} icon="icon-volume" />
         </div>
         <div  className={classNames(styles.volumeProgress, styles.btn)}>
           <input

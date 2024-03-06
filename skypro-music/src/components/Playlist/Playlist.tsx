@@ -1,13 +1,13 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import styles from "./Playlist.module.css";
 import Link from "next/link";
 
-type Playlist = {
-  src: any,
+type PlaylistType = {
+  src: StaticImageData,
   alt: string
 }
 
-export default function Playlist({ src, alt }: Playlist) {
+export default function Playlist({ src, alt }: PlaylistType) {
   return (
     <div className={styles.sidebarItem}>
       <Link className={styles.sidebarLink} href="#">

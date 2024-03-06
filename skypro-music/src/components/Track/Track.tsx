@@ -1,23 +1,22 @@
 import Link from "next/link";
 import styles from "./Track.module.css";
+import SVG from "../SVG/SVG";
 
-type Track = {
+type TrackType = {
   title: string;
   author: string;
   album: string;
   time: string;
 };
 
-export default function Track({ title, author, album, time }: Track) {
+export default function Track({ title, author, album, time }: TrackType) {
   return (
     <>
       <div className={styles.playlistItem}>
         <div className={styles.playlistTrack}>
           <div className={styles.trackTitle}>
             <div className={styles.trackTitleImage}>
-              <svg className={styles.trackTitleSvg}>
-                <use xlinkHref="img/icon/sprite.svg#icon-note" />
-              </svg>
+              <SVG className={styles.trackTitleSvg} icon="icon-note" />
             </div>
             <div>
               <Link className={styles.trackTitleLink} href="http://">
@@ -36,12 +35,10 @@ export default function Track({ title, author, album, time }: Track) {
       </Link>
     </div >
       <div>
-        <svg className={styles.trackTimeSvg}>
-          <use xlinkHref="img/icon/sprite.svg#icon-like" />
-        </svg>
+        <SVG className={styles.trackTimeSvg} icon="icon-like" />
         <span className={styles.trackTimeText}>{time}</span>
       </div>
-        </div >
+        </div>
       </div >
     </>
   )

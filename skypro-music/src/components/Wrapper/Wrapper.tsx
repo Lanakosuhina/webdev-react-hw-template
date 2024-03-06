@@ -1,9 +1,9 @@
 import styles from "./Wrapper.module.css";
 
-type Wrapper = {
-  children: any
+type WrapperType = {
+  children: string
 }
 
-export default function Wrapper({ children }: Wrapper) {
+export default function Wrapper({ children }: WrapperType) {
   return <div className={styles.wrapper}>{children}</div>;
 }

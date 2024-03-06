@@ -1,0 +1,47 @@
+@keyframes load {
+  0% {
+    background: rgb(49, 49, 49);
+  }
+
+  100% {
+    background: rgb(139, 139, 139);
+  }
+}
+
+.container {
+  width: auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "image author""image album";
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.image {
+  width: 51px;
+  height: 51px;
+  animation: load 1s linear infinite alternate;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: 12px;
+  grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-column: 1;
+  grid-area: image;
+}
+
+.rectangle {
+  width: 59px;
+  height: 15px;
+  animation: load 1s linear infinite alternate;
+}
