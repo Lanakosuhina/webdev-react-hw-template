@@ -2,14 +2,17 @@ import styles from "./ProgressBar.module.css"
 
 
 type ProgressBarType = {
-  currentProgress: number, 
-  duration: number, 
+  currentProgress: number,
+  duration: number,
   handleDuration: (e: number) => void,
   setCurrentProgress: (progress: number) => void,
 }
 
 export default function ProgressBar({ currentProgress, duration, handleDuration, setCurrentProgress }: ProgressBarType) {
- // const duration = 230;
+  // const duration = 230;
+  if (isNaN(duration)) {
+    duration = 0;
+  }
 
   return (
     <input

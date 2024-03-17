@@ -1,4 +1,3 @@
-'use client'
 import Bar from "@/components/Bar/Bar";
 import Centerblock from "@/components/Centerblock/Centerblock";
 import Container from "@/components/Container/Container";
@@ -7,21 +6,21 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import Wrapper from "@/components/Wrapper/Wrapper";
 import styles from "./page.module.css"
 import { useEffect, useState } from "react";
-import { DataTrack, getAllTracks } from "./api/trackAPI";
+import { DataTrack } from "./api/trackAPI";
 
-export default function Home() {
-  const [tracks, setTracks] = useState<DataTrack[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [currentTrack, setCurrentTrack] = useState<DataTrack | null>(null)
 
-  useEffect(() => {
-    getAllTracks()
-      .then(response => {
-        setTracks(response)
-        setIsLoading(false)
-      })
-  }, [])
-  console.log(currentTrack);
+async function getData() {
+  const res = await fetch("https://skypro-music-api.skyeng.tech/catalog/track/all/");
+
+  if (!res.ok) {
+    throw new Error('Ошибка при получении данных');
+  }
+  return res.json()
+}
+
+export default async function Home() {
+  const data = await getData();
+
 
   return (
     <>
@@ -29,10 +28,10 @@ export default function Home() {
         <Container>
           <main className={styles.main}>
             <Navigation />
-            <Centerblock isLoading={isLoading} tracks={tracks} setCurrentTrack={setCurrentTrack} />
+            <Centerblock tracks={data} />
             <Sidebar />
           </main>
-          {currentTrack ? <Bar currentTrack={currentTrack} /> : <></>}
+          <Bar tracks={data} />
           <footer className="footer" />
         </Container>
       </Wrapper>

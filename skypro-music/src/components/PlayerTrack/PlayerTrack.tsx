@@ -5,10 +5,10 @@ import SVG from "../SVG/SVG";
 import { DataTrack } from "@/app/api/trackAPI";
 
 type PlayerTrackProps = {
-  currentTrack: DataTrack,
+  track: DataTrack,
 }
 
-export default function PlayerTrack({ currentTrack }: PlayerTrackProps) {
+export default function PlayerTrack({ track  }: PlayerTrackProps) {
 
   return (
     <div className={styles.playerTrackPlay}>
@@ -18,12 +18,12 @@ export default function PlayerTrack({ currentTrack }: PlayerTrackProps) {
         </div>
         <div className={styles.trackPlayAuthor}>
           <div className={styles.trackPlayAuthorLink}>
-            {currentTrack.name}
+            {track.name}
           </div>
         </div>
         <div className={styles.trackPlayAlbum}>
           <div className={styles.trackPlayAlbumLink}>
-            {currentTrack.author}
+            {track.author}
           </div>
         </div>
       </div>

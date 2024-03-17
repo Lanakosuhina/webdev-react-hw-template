@@ -17,12 +17,7 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: end;
 }
 
 .volumeImage {
@@ -43,8 +38,31 @@
 
 .volumeProgressLine {
   width: 109px;
+  appearance: none;
+  background-color: transparent;
 }
 
 .btn {
   cursor: pointer;
+  display: flex;
+}
+
+
+.volumeProgressLine::-webkit-slider-runnable-track {
+  position: relative;
+  height: 4px;
+  background-color: #2e2e2e;
+}
+
+.volumeProgressLine::-webkit-slider-thumb {
+  box-sizing: border-box;
+  appearance: none;
+  position: relative;
+  background-color: #0f0f0f;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 12px;
+  height: 12px;
+  top: 50%;
+  translate: 0 -50%;
 }

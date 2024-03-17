@@ -56,6 +56,6 @@
   height: var(--progress-height);
 }
 
-.styledProgressInput::-webkit-slider-runnable-track:hover {
- border: .5px solid white;
+.styledProgressInput:hover {
+  height: 10px;
 }
