@@ -20,6 +20,9 @@
   -ms-flex-align: center;
   align-items: center;
 }
+.playlistTrack:hover {
+  cursor: pointer;
+}
 
 .trackTitle {
   display: -webkit-box;

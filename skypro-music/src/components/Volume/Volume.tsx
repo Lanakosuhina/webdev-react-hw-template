@@ -2,7 +2,12 @@ import classNames from "classnames"
 import styles from "../Volume/Volume.module.css"
 import SVG from "../SVG/SVG"
 
-export default function Volume() {
+type VolumeType = {
+  handleVolume: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export default function Volume({handleVolume}: VolumeType) {
+ 
   return (
     <div className={styles.volumeBlock}>
       <div className={styles.volumeContent}>
@@ -14,6 +19,9 @@ export default function Volume() {
             className={classNames(styles.volumeProgressLine, styles.btn)}
             type="range"
             name="range"
+            min={0}
+            max={10}
+            onChange={handleVolume}
           />
         </div>
       </div>

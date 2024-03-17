@@ -106,3 +106,9 @@
   stroke: #ffffff;
   cursor: pointer;
 }
+
+.btnIconActive svg {
+  fill: #696969;
+  stroke: #ffffff;
+  cursor: pointer;
+}

@@ -1,42 +1,32 @@
 'use client'
 import classNames from "classnames"
 import styles from "../PlayerTrack/PlayerTrack.module.css"
-import Link from "next/link"
-import { useEffect, useState } from "react";
-import PlayerSkeleton from "../PlayerSkeleton/PlayerSkeleton";
 import SVG from "../SVG/SVG";
+import { DataTrack } from "@/app/api/trackAPI";
 
-export default function PlayerTrack() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+type PlayerTrackProps = {
+  currentTrack: DataTrack,
+}
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000)
-    return () => {
-      clearTimeout(timeout);
-    }
-  }, [])
+export default function PlayerTrack({ currentTrack }: PlayerTrackProps) {
 
   return (
     <div className={styles.playerTrackPlay}>
-      {isLoading ? (<PlayerSkeleton />) : (
-        <div className={styles.trackPlayContain}>
-          <div className={styles.trackPlayImage}>
-            <SVG className={styles.trackPlaySvg} icon="icon-note" />
+      <div className={styles.trackPlayContain}>
+        <div className={styles.trackPlayImage}>
+          <SVG className={styles.trackPlaySvg} icon="icon-note" />
+        </div>
+        <div className={styles.trackPlayAuthor}>
+          <div className={styles.trackPlayAuthorLink}>
+            {currentTrack.name}
           </div>
-          <div className={styles.trackPlayAuthor}>
-            <Link className={styles.trackPlayAuthorLink} href="http://">
-              Ты та...
-            </Link>
+        </div>
+        <div className={styles.trackPlayAlbum}>
+          <div className={styles.trackPlayAlbumLink}>
+            {currentTrack.author}
           </div>
-          <div className={styles.trackPlayAlbum}>
-            <Link className={styles.trackPlayAlbumLink} href="http://">
-              Баста
-            </Link>
-          </div>
-        </div >
-      )}
+        </div>
+      </div>
       <div className={styles.trackPlayLikeDis}>
         <div className={classNames(styles.trackPlayLike, styles.btnIcon)}>
           <SVG className={styles.trackPlayLikeSvg} icon="icon-like" />

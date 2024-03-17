@@ -1,7 +1,7 @@
 import styles from "./Container.module.css";
 
 type ContainerType = {
-  children: string
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function Container({ children }: ContainerType) {

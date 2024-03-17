@@ -1,7 +1,7 @@
 import styles from "./Wrapper.module.css";
 
 type WrapperType = {
-  children: string
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function Wrapper({ children }: WrapperType) {

@@ -34,5 +34,6 @@
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
+  max-height: 1000px;
 }
 
