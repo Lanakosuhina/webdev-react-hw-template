@@ -7,13 +7,16 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { setFilteredTracks } from "@/app/store/features/PlaylistSlice";
 // import { authors, genres, years } from "./data";
 
-type TrackKeys = Pick<DataTrack, "author" | "genre">;
+type TrackKeys = Pick<DataTrack, "author" | "genre" | "release_date">;
 
 export default function FilterWrapper() {
   const [activeFilter, setActiveFilter] = useState<null | string>(null);
-  const trackList = useAppSelector((store) => store.playlist.tracks);
-  const selectedAuthors = useAppSelector((store) => store.playlist.filterOptions.authors)
+
   const dispatch = useAppDispatch();
+  const trackList = useAppSelector((store) => store.playlist.tracks);
+
+  const selectedAuthors = useAppSelector((store) => store.playlist.filterOptions.authors)
+ // const selectedYears = useAppSelector((store) => store.playlist.filterOptions.years)
 
   function handleFilterClick(filterName: string) {
     // если предыдущее значение = текущему фильтру(filterName), то возвращаем null/ чтобы закрыть
@@ -38,15 +41,23 @@ export default function FilterWrapper() {
 
   const authorsList: string[] = getListItem("author");
   const genreList: string[] = getListItem("genre");
-  // const years: string[] = getListItem("release_date");
+  const yearList: string[] = getListItem("release_date");
 
   function toggleSelectedAuthors(item: string) {
-    dispatch(setFilteredTracks({authors: selectedAuthors.includes(item) 
-      ? selectedAuthors.filter((author) => author !== item)
-      : [...selectedAuthors, item]
+    dispatch(setFilteredTracks({
+      authors: selectedAuthors.includes(item)
+        ? selectedAuthors.filter((author) => author !== item)
+        : [...selectedAuthors, item]
     }))
-  } 
+  }
 
+  // function toggleSelectedYears(item: string) {
+  //   dispatch(setFilteredTracks({
+  //     years: selectedYears.includes(item)
+  //       ? selectedYears.filter((year) => year !== item)
+  //       : [...selectedYears, item]
+  //   }))
+  // }
   return (
     <div className={styles.centerblockFilter}>
       <div className={styles.filterTitle}>Искать по:</div>
@@ -61,7 +72,9 @@ export default function FilterWrapper() {
       />
       <Filter
         title="году выпуска"
-        list={genreList}
+        list={yearList}
+        // selected={selectedYears}
+        // toggleSelected={toggleSelectedYears}
         isOpen={activeFilter === 'years'}
         onClick={() => handleFilterClick("years")}
       />
@@ -71,14 +84,6 @@ export default function FilterWrapper() {
         isOpen={activeFilter === 'genres'}
         onClick={() => handleFilterClick("genres")}
       />
-
-      {/* <div className={classNames(styles.filterButton, styles.btnText)}>
-          исполнителю
-        </div>
-        <div className={classNames(styles.filterButton, styles.btnText)}>
-          году выпуска
-        </div>
-        <div className={classNames(styles.filterButton, styles.btnText)}>жанру</div> */}
     </div>
   )
 }

@@ -1,11 +1,13 @@
 'use client'
-import { useAppSelector } from "@/app/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import PlaylistTitle from "../PlaylistTitle/PlaylistTitle";
 import SearchBar from "../SearchBar/SearchBar";
 import Track from "../Track/Track";
 import styles from "./Centerblock.module.css";
 import { DataTrack } from "@/app/api/trackAPI";
+import { useEffect } from "react";
+import { setTracks } from "@/app/store/features/PlaylistSlice";
 
 type CenterblockProps = {
   tracks: DataTrack[],
@@ -13,6 +15,11 @@ type CenterblockProps = {
 
 export default function Centerblock({ tracks }: CenterblockProps) {
   const filteredTracks = useAppSelector((store) => store.playlist.filteredTracks)
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setTracks(tracks))
+  }, [])
 
   return (
     <div className={styles.mainCenterblock}>

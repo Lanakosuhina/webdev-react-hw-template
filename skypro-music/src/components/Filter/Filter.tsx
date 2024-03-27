@@ -35,23 +35,6 @@ export default function Filter({ list, title, isOpen, selected, toggleSelected, 
                   </li>
                 )
               })}
-              {/* {list.map((item, index) => {
-                const activeClass = selected?.includes(item)
-                  ? styles.listItemActive
-                  : "";
-                return (
-                  <li
-                    className={cn(styles.listItem, activeClass)}
-                    key={index}
-                    onClick={() => {
-                      if (toggleSelected) toggleSelected(item);
-                    }}
-                  >
-                    {item}
-                  </li>
-                );
-              })} */}
-
             </div>
           </ul>
         )}

@@ -54,10 +54,15 @@ const playlistSlice = createSlice({
     ) => {
       state.filterOptions = {
         authors: action.payload.authors || state.filterOptions.authors,
-        searchValue: action.payload.searchValue || ""
+      //  years: action.payload.years || state.filterOptions.years,
+        // genres: action.payload.genres || state.filterOptions.genres,
+
+        searchValue: action.payload.searchValue || "",
       };
       state.filteredTracks = state.tracks.filter((track) => {
         const hasAuthors = state.filterOptions.authors.length !== 0;
+        // const hasYears = state.filterOptions.years.length !== 0;
+        // const hasGenres = state.filterOptions.genres.length !== 0;
         const isSearchValueIncluded =
           track.name
             .toLowerCase()
@@ -65,6 +70,8 @@ const playlistSlice = createSlice({
         if (hasAuthors) {
           return (
             state.filterOptions.authors.includes(track.author) &&
+          //  state.filterOptions.years.includes(track.release_date) &&
+          //  state.filterOptions.genres.includes(track.genre) &&
             isSearchValueIncluded
           );
         }
@@ -94,6 +101,6 @@ export const {
   nextTrack,
   toggleIsPlaying,
   prevTrack,
-  setFilteredTracks 
+  setFilteredTracks
 } = playlistSlice.actions;
 export const PlaylistReducer = playlistSlice.reducer;
