@@ -7,8 +7,12 @@ type TrackListType = {
   shuffledTracks: DataTrack[],
   currentTrack: null | DataTrack,
   isPlaying: boolean,
-  filterOptions: { authors: string[], searchValue: string },
-  filteredTracks: [] | DataTrack[];
+  filterOptions: {
+    authors: string[];
+    years: string[];
+    genres: string[];
+    searchValue: string;
+  }; filteredTracks: [] | DataTrack[];
 }
 
 type SetCurrentTrack = {
@@ -22,7 +26,12 @@ const initialState: TrackListType = {
   shuffledTracks: [],
   currentTrack: null,
   isPlaying: true,
-  filterOptions: { authors: [], searchValue: '' },
+  filterOptions: {
+    authors: [],
+    years: [],
+    genres: [],
+    searchValue: "",
+  },
   filteredTracks: [],
 };
 
@@ -50,32 +59,108 @@ const playlistSlice = createSlice({
     },
     setFilteredTracks: (
       state,
-      action: PayloadAction<{ authors?: string[]; searchValue?: string }>
+      action: PayloadAction<{
+        authors?: string[];
+        years?: string[];
+        genre?: string[];
+        searchValue?: string;
+      }>
     ) => {
       state.filterOptions = {
         authors: action.payload.authors || state.filterOptions.authors,
-      //  years: action.payload.years || state.filterOptions.years,
-        // genres: action.payload.genres || state.filterOptions.genres,
-
-        searchValue: action.payload.searchValue || "",
+        years: action.payload.years || state.filterOptions.years,
+        genres: action.payload.genre || state.filterOptions.genres,
+        searchValue: action.payload.searchValue || state.filterOptions.searchValue,
       };
       state.filteredTracks = state.tracks.filter((track) => {
-        const hasAuthors = state.filterOptions.authors.length !== 0;
-        // const hasYears = state.filterOptions.years.length !== 0;
-        // const hasGenres = state.filterOptions.genres.length !== 0;
+        const hasAuthor = state.filterOptions.authors.length !== 0;
+        const hasYear = state.filterOptions.years.length !== 0;
+        const hasGenre = state.filterOptions.genres.length !== 0;
+        const hasSearchValue = state.filterOptions.searchValue !== "";
         const isSearchValueIncluded =
           track.name
             .toLowerCase()
             .includes(state.filterOptions.searchValue.toLowerCase());
-        if (hasAuthors) {
+
+        if (hasAuthor && hasYear && hasGenre && hasSearchValue) {
           return (
             state.filterOptions.authors.includes(track.author) &&
-          //  state.filterOptions.years.includes(track.release_date) &&
-          //  state.filterOptions.genres.includes(track.genre) &&
+            state.filterOptions.years.includes(track.release_date) &&
+            state.filterOptions.genres.includes(track.genre) &&
             isSearchValueIncluded
           );
         }
-        return isSearchValueIncluded;
+
+        if (hasAuthor && hasYear && hasGenre) {
+          return (
+            state.filterOptions.authors.includes(track.author) &&
+            state.filterOptions.years.includes(track.release_date) &&
+            state.filterOptions.genres.includes(track.genre)
+          );
+        }
+
+        if (hasAuthor && hasYear && hasSearchValue) {
+          return (
+            state.filterOptions.authors.includes(track.author) &&
+            state.filterOptions.years.includes(track.release_date) &&
+            isSearchValueIncluded
+          );
+        }
+
+        if (hasAuthor && hasGenre && hasSearchValue) {
+          return (
+            state.filterOptions.authors.includes(track.author) &&
+            state.filterOptions.genres.includes(track.genre) &&
+            isSearchValueIncluded
+          );
+        }
+
+        if (hasYear && hasGenre && hasSearchValue) {
+          return (
+            state.filterOptions.years.includes(track.release_date) &&
+            state.filterOptions.genres.includes(track.genre) &&
+            isSearchValueIncluded
+          );
+        }
+
+        if (hasAuthor && hasYear) {
+          return (
+            state.filterOptions.authors.includes(track.author) &&
+            state.filterOptions.years.includes(track.release_date)
+          );
+        }
+
+        if (hasAuthor && hasGenre) {
+          return (
+            state.filterOptions.authors.includes(track.author) &&
+            state.filterOptions.genres.includes(track.genre)
+          );
+        }
+
+        if (hasYear && hasGenre) {
+          return (
+            state.filterOptions.years.includes(track.release_date) &&
+            state.filterOptions.genres.includes(track.genre)
+          );
+        }
+
+        if (hasAuthor) {
+          return state.filterOptions.authors.includes(track.author);
+        }
+
+        if (hasYear) {
+          return state.filterOptions.years.includes(track.release_date);
+        }
+
+        if (hasGenre) {
+          return state.filterOptions.genres.includes(track.genre);
+        }
+
+        if (hasSearchValue) {
+          return isSearchValueIncluded
+        }
+
+        return true;
       });
     },
   },

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Filter } from "../Filter";
 import styles from "./FilterWrapper.module.css";
 import { DataTrack } from "@/app/api/trackAPI";
@@ -16,20 +16,22 @@ export default function FilterWrapper() {
   const trackList = useAppSelector((store) => store.playlist.tracks);
 
   const selectedAuthors = useAppSelector((store) => store.playlist.filterOptions.authors)
- // const selectedYears = useAppSelector((store) => store.playlist.filterOptions.years)
+  const selectedYears = useAppSelector((store) => store.playlist.filterOptions.years)
+  const selectedGenres = useAppSelector((store) => store.playlist.filterOptions.genres);
 
-  function handleFilterClick(filterName: string) {
+  const handleFilterClick = useCallback((filterName: string) => {
     // если предыдущее значение = текущему фильтру(filterName), то возвращаем null/ чтобы закрыть
-    setActiveFilter(prev => prev === filterName ? null : filterName)
-  }
-  function getListItem(item: keyof TrackKeys) {
+    setActiveFilter(prev => prev === filterName ? null : filterName);
+  }, []);
+
+  const getListItem = useCallback((item: keyof TrackKeys) => {
     const listItem: string[] = [];
     trackList?.forEach((track) => {
       if (listItem.includes(track[item]) || track[item] === undefined) return;
       listItem.push(track[item]);
     });
     return listItem.sort();
-  }
+  }, [trackList]);
 
   // const uniq = (value, index, array) => array.indexOf(value) === index
 
@@ -39,25 +41,34 @@ export default function FilterWrapper() {
   //   .filter(uniq)
   //   .sort()
 
-  const authorsList: string[] = getListItem("author");
-  const genreList: string[] = getListItem("genre");
-  const yearList: string[] = getListItem("release_date");
+  const authorsList: string[] = useMemo(() => getListItem('author'), [getListItem]);
+  const genreList: string[] = useMemo(() => getListItem('genre'), [getListItem]);
+  const yearList: string[] = useMemo(() => getListItem('release_date'), [getListItem]);
 
-  function toggleSelectedAuthors(item: string) {
+  const toggleSelectedAuthors = useCallback((item: string) => {
     dispatch(setFilteredTracks({
       authors: selectedAuthors.includes(item)
         ? selectedAuthors.filter((author) => author !== item)
         : [...selectedAuthors, item]
     }))
-  }
+  }, [selectedAuthors, dispatch]);
 
-  // function toggleSelectedYears(item: string) {
-  //   dispatch(setFilteredTracks({
-  //     years: selectedYears.includes(item)
-  //       ? selectedYears.filter((year) => year !== item)
-  //       : [...selectedYears, item]
-  //   }))
-  // }
+  const toggleSelectedYears = useCallback((item: string) => {
+    dispatch(setFilteredTracks({
+      years: selectedYears.includes(item)
+        ? selectedYears.filter((year) => year !== item)
+        : [...selectedYears, item]
+    }))
+  }, [selectedYears, dispatch]);
+
+  const toggleSelectedGenres = useCallback((item: string) => {
+    dispatch(setFilteredTracks({
+      genre: selectedGenres.includes(item)
+        ? selectedGenres.filter((genre) => genre !== item)
+        : [...selectedGenres, item],
+    }));
+  }, [selectedGenres, dispatch]);
+
   return (
     <div className={styles.centerblockFilter}>
       <div className={styles.filterTitle}>Искать по:</div>
@@ -73,14 +84,16 @@ export default function FilterWrapper() {
       <Filter
         title="году выпуска"
         list={yearList}
-        // selected={selectedYears}
-        // toggleSelected={toggleSelectedYears}
+        selected={selectedYears}
+        toggleSelected={toggleSelectedYears}
         isOpen={activeFilter === 'years'}
         onClick={() => handleFilterClick("years")}
       />
       <Filter
         title="жанру"
         list={genreList}
+        selected={selectedGenres}
+        toggleSelected={toggleSelectedGenres}
         isOpen={activeFilter === 'genres'}
         onClick={() => handleFilterClick("genres")}
       />

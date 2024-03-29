@@ -11,8 +11,9 @@ import formatTime from "@/app/libs/formatTime";
 import { DataTrack } from "@/app/api/trackAPI";
 
 
-export default function Bar({ tracks }: { tracks: DataTrack[] }) {
-  const { currentTrack, isPlaying } = useAppSelector((store) => store.playlist)
+export default function Bar() {
+  const { currentTrack, isPlaying, tracks } = useAppSelector((store) => store.playlist)
+
   const dispatch = useAppDispatch();
 
   const [isLooping, setIsLooping] = useState(false);

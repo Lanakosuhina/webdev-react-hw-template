@@ -9,7 +9,7 @@ import SVG from "../SVG/SVG"
 import SidebarSkeleton from "../SidebarSkeleton/SidebarSkeleton"
 
 export default function Sidebar() {
-  const Playlist = React.lazy(() => import('../Playlist/Playlist'))
+  const SidebarItem = React.lazy(() => import('../SidebarItem/SidebarItem'))
 
   return (
     <div className={styles.mainSidebar}>
@@ -22,9 +22,9 @@ export default function Sidebar() {
       <div className={styles.sidebarBlock}>
         <Suspense fallback={<SidebarSkeleton />}>
           <div className={styles.sidebarList}>
-            <Playlist src={playlist01} alt="day's playlist" />
-            <Playlist src={playlist02} alt="100 dance hits" />
-            <Playlist src={playlist03} alt="indi music playlist" />
+            <SidebarItem src={playlist01} alt="day's playlist" />
+            <SidebarItem src={playlist02} alt="100 dance hits" />
+            <SidebarItem src={playlist03} alt="indi music playlist" />
           </div>
         </Suspense>
       </div>
