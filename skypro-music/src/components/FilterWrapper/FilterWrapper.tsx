@@ -80,6 +80,7 @@ export default function FilterWrapper() {
         toggleSelected={toggleSelectedAuthors}
         isOpen={activeFilter === 'author'}
         onClick={() => handleFilterClick("author")}
+        counter={selectedAuthors.length}
       />
       <Filter
         title="году выпуска"
@@ -88,6 +89,7 @@ export default function FilterWrapper() {
         toggleSelected={toggleSelectedYears}
         isOpen={activeFilter === 'years'}
         onClick={() => handleFilterClick("years")}
+        counter={selectedYears.length}
       />
       <Filter
         title="жанру"
@@ -96,6 +98,7 @@ export default function FilterWrapper() {
         toggleSelected={toggleSelectedGenres}
         isOpen={activeFilter === 'genres'}
         onClick={() => handleFilterClick("genres")}
+        counter={selectedGenres.length}
       />
     </div>
   )

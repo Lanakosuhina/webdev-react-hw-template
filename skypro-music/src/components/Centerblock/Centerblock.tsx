@@ -1,6 +1,5 @@
 'use client'
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
-import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import PlaylistTitle from "../PlaylistTitle/PlaylistTitle";
 import Track from "../Track/Track";
 import styles from "./Centerblock.module.css";
@@ -16,6 +15,7 @@ export default function Centerblock({ tracks }: CenterblockProps) {
   const filteredTracks = useAppSelector((store) => store.playlist.filteredTracks)
  
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(setTracks(tracks))
   }, [])

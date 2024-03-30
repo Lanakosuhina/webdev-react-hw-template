@@ -8,11 +8,13 @@ type TrackListType = {
   currentTrack: null | DataTrack,
   isPlaying: boolean,
   filterOptions: {
-    authors: string[];
-    years: string[];
-    genres: string[];
-    searchValue: string;
-  }; filteredTracks: [] | DataTrack[];
+    authors: string[],
+    years: string[],
+    genres: string[],
+    searchValue: string,
+  };
+  filteredTracks: [] | DataTrack[],
+  isFiltered: boolean,
 }
 
 type SetCurrentTrack = {
@@ -33,6 +35,7 @@ const initialState: TrackListType = {
     searchValue: "",
   },
   filteredTracks: [],
+  isFiltered: false,
 };
 
 const playlistSlice = createSlice({
@@ -159,8 +162,8 @@ const playlistSlice = createSlice({
         if (hasSearchValue) {
           return isSearchValueIncluded
         }
-
-        return true;
+        //      state.isFiltered = hasAuthor || hasGenre || hasSearchValue ? true : false;
+        return true
       });
     },
   },
@@ -186,6 +189,6 @@ export const {
   nextTrack,
   toggleIsPlaying,
   prevTrack,
-  setFilteredTracks
+  setFilteredTracks,
 } = playlistSlice.actions;
 export const PlaylistReducer = playlistSlice.reducer;

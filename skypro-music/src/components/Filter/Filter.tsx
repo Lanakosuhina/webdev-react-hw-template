@@ -8,12 +8,14 @@ type FilterType = {
   onClick: () => void;
   selected?: string[];
   toggleSelected?: (item: string) => void; 
+  counter: number | null;
 }
 
-export default function Filter({ list, title, isOpen, selected, toggleSelected, onClick }: FilterType) {
+export default function Filter({ list, title, isOpen, selected, toggleSelected, onClick, counter }: FilterType) {
   return (
     <>
       <div className={styles.wrapper}>
+        {counter !== 0 && (<span className={styles.counter}>{counter}</span>)}
         <button className={classNames(styles.filterButton, styles.btnText)} onClick={onClick}>
           {title}
         </button>
