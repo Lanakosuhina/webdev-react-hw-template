@@ -55,6 +55,20 @@
   line-height: 24px;
 }
 
+.list:hover {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+  cursor: pointer;
+}
+
+.listActive {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
 .wrap::-webkit-scrollbar {
   width: 3px;
 }

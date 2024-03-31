@@ -5,9 +5,6 @@ import Navigation from "@/components/Navigation/Navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Wrapper from "@/components/Wrapper/Wrapper";
 import styles from "./page.module.css"
-import { useEffect, useState } from "react";
-import { DataTrack } from "./api/trackAPI";
-
 
 async function getData() {
   const res = await fetch("https://skypro-music-api.skyeng.tech/catalog/track/all/");
