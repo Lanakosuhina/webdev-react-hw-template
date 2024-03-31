@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент фильтра корректно отрисовывает разметку с начальными значениями 1`] = `
+<div
+  className="wrapper"
+>
+  <button
+    className="filterButton btnText"
+    onClick={[MockFunction]}
+  >
+    Жанры
+  </button>
+</div>
+`;
+
+exports[`Компонент фильтра корректно отрисовывает разметку с начальными значениями isOpen = true 1`] = `
+<div
+  className="wrapper"
+>
+  <button
+    className="filterButton btnText"
+    onClick={[MockFunction]}
+  >
+    жанру
+  </button>
+  <ul
+    className="dropdown"
+  >
+    <div
+      className="wrap"
+    >
+      <li
+        className="list"
+        onClick={[Function]}
+      >
+        item 1
+      </li>
+      <li
+        className="list"
+        onClick={[Function]}
+      >
+        item 2
+      </li>
+    </div>
+  </ul>
+</div>
+`;

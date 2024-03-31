@@ -5,7 +5,6 @@ import styles from "./FilterWrapper.module.css";
 import { DataTrack } from "@/app/api/trackAPI";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { setFilteredTracks } from "@/app/store/features/PlaylistSlice";
-// import { authors, genres, years } from "./data";
 
 type TrackKeys = Pick<DataTrack, "author" | "genre" | "release_date">;
 

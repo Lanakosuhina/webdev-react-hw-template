@@ -7,13 +7,17 @@ import Main from "@/components/Main/Main";
 import { SearchBar } from "@/components/SearchBar";
 import { CenterWrapper } from "@/components/CenterWrapper";
 
-type LayoutType = {
-  children: JSX.Element
-};
+// type LayoutType = {
+//   children: JSX.Element
+// };
 
-export default async function Layout({ children }: LayoutType) {
-
-  return (
+// export default function Layout({children}: LayoutType) {
+export default function Layout({ 
+  children, 
+}: { 
+  children: React.ReactNode; 
+}) { 
+  return ( 
     <Wrapper>
       <Container>
         <Main>

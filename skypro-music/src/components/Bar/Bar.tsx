@@ -8,7 +8,6 @@ import { ProgressBar } from "../ProgressBar";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { toggleIsPlaying } from "@/app/store/features/PlaylistSlice";
 import formatTime from "@/app/libs/formatTime";
-import { DataTrack } from "@/app/api/trackAPI";
 
 
 export default function Bar() {

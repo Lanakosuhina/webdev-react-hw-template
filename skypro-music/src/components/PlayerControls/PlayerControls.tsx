@@ -1,3 +1,4 @@
+'use client'
 import classNames from "classnames"
 import styles from "../PlayerControls/PlayerControls.module.css"
 import SVG from "../SVG/SVG"

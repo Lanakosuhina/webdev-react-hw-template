@@ -164,8 +164,8 @@
 .stoppedDot {
   position: absolute;
   text-align: center;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background-color: #b672ff;
   border-radius: 10px;
 }

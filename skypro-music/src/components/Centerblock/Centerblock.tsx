@@ -18,7 +18,7 @@ export default function Centerblock({ tracks }: CenterblockProps) {
 
   useEffect(() => {
     dispatch(setTracks(tracks))
-  }, [])
+  }, [tracks, dispatch])
 
     {/* если отфильтрованных треков нет, то покажем исходный список треков
          если есть фильтры, но нет результатов, то покажем текст "результаты не найдены"*/}
