@@ -1,10 +1,10 @@
 import styles from "./Heading.module.css";
 
 type HeadingType = {
-  text: string;
+  title: string;
 }
-export default function Heading({ text }: HeadingType) {
+export default function Heading({ title }: HeadingType) {
   return (
-    <h2 className={styles.heading}>{text}</h2>
+    <h2 className={styles.heading}>{title}</h2>
   )
 }

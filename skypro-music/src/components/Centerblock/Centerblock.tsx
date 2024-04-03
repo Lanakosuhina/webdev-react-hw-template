@@ -11,23 +11,25 @@ type CenterblockProps = {
   tracks: DataTrack[],
 }
 
-export default function Centerblock({ tracks }: CenterblockProps) {
+export default function Centerblock({tracks}: CenterblockProps ) {
   const filteredTracks = useAppSelector((store) => store.playlist.filteredTracks)
- 
+ // const isFiltered = useAppSelector((store) => store.playlist.isFiltered)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setTracks(tracks))
   }, [tracks, dispatch])
 
-    {/* если отфильтрованных треков нет, то покажем исходный список треков
+  {/* если отфильтрованных треков нет, то покажем исходный список треков
          если есть фильтры, но нет результатов, то покажем текст "результаты не найдены"*/}
   return (
     <>
       <div className={styles.centerblockContent}>
         <PlaylistTitle />
         <div className={styles.contentPlaylist}>
-          {tracks?.map((track) => (
+          {filteredTracks.length !== 0 ? filteredTracks.map((track) => (
+            <Track key={track.id} track={track} tracks={tracks} />
+          )) : tracks.map((track) => (
             <Track key={track.id} track={track} tracks={tracks} />
           ))}
         </div>

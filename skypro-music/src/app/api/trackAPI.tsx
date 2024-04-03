@@ -1,4 +1,4 @@
-export interface DataTrack {
+export type DataTrack = {
   album: string,
   author: string,
   duration_in_seconds: number,

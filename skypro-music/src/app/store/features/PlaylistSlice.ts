@@ -1,4 +1,5 @@
 import { DataTrack } from "@/app/api/trackAPI";
+import { authors } from "@/components/FilterWrapper/data";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TrackListType = {
@@ -73,98 +74,28 @@ const playlistSlice = createSlice({
         authors: action.payload.authors || state.filterOptions.authors,
         years: action.payload.years || state.filterOptions.years,
         genres: action.payload.genre || state.filterOptions.genres,
-        searchValue: action.payload.searchValue || state.filterOptions.searchValue,
+        searchValue: action.payload.searchValue || "",
+
+        // searchValue: action.payload.searchValue || state.filterOptions.searchValue,
       };
       state.filteredTracks = state.tracks.filter((track) => {
         const hasAuthor = state.filterOptions.authors.length !== 0;
         const hasYear = state.filterOptions.years.length !== 0;
         const hasGenre = state.filterOptions.genres.length !== 0;
-        const hasSearchValue = state.filterOptions.searchValue !== "";
+        //  const hasSearchValue = state.filterOptions.searchValue !== "";
+
+        const isAuthors = hasAuthor ? state.filterOptions.authors.includes(track.author) : true
+        const isGenres = hasGenre ? state.filterOptions.genres.includes(track.genre) : true
+        const isYears = hasYear ? state.filterOptions.years.includes(track.release_date) : true
         const isSearchValueIncluded =
           track.name
             .toLowerCase()
             .includes(state.filterOptions.searchValue.toLowerCase());
 
-        if (hasAuthor && hasYear && hasGenre && hasSearchValue) {
-          return (
-            state.filterOptions.authors.includes(track.author) &&
-            state.filterOptions.years.includes(track.release_date) &&
-            state.filterOptions.genres.includes(track.genre) &&
-            isSearchValueIncluded
-          );
-        }
-
-        if (hasAuthor && hasYear && hasGenre) {
-          return (
-            state.filterOptions.authors.includes(track.author) &&
-            state.filterOptions.years.includes(track.release_date) &&
-            state.filterOptions.genres.includes(track.genre)
-          );
-        }
-
-        if (hasAuthor && hasYear && hasSearchValue) {
-          return (
-            state.filterOptions.authors.includes(track.author) &&
-            state.filterOptions.years.includes(track.release_date) &&
-            isSearchValueIncluded
-          );
-        }
-
-        if (hasAuthor && hasGenre && hasSearchValue) {
-          return (
-            state.filterOptions.authors.includes(track.author) &&
-            state.filterOptions.genres.includes(track.genre) &&
-            isSearchValueIncluded
-          );
-        }
-
-        if (hasYear && hasGenre && hasSearchValue) {
-          return (
-            state.filterOptions.years.includes(track.release_date) &&
-            state.filterOptions.genres.includes(track.genre) &&
-            isSearchValueIncluded
-          );
-        }
-
-        if (hasAuthor && hasYear) {
-          return (
-            state.filterOptions.authors.includes(track.author) &&
-            state.filterOptions.years.includes(track.release_date)
-          );
-        }
-
-        if (hasAuthor && hasGenre) {
-          return (
-            state.filterOptions.authors.includes(track.author) &&
-            state.filterOptions.genres.includes(track.genre)
-          );
-        }
-
-        if (hasYear && hasGenre) {
-          return (
-            state.filterOptions.years.includes(track.release_date) &&
-            state.filterOptions.genres.includes(track.genre)
-          );
-        }
-
-        if (hasAuthor) {
-          return state.filterOptions.authors.includes(track.author);
-        }
-
-        if (hasYear) {
-          return state.filterOptions.years.includes(track.release_date);
-        }
-
-        if (hasGenre) {
-          return state.filterOptions.genres.includes(track.genre);
-        }
-
-        if (hasSearchValue) {
-          return isSearchValueIncluded
-        }
-        //      state.isFiltered = hasAuthor || hasGenre || hasSearchValue ? true : false;
-        return true
+        return isAuthors && isGenres && isSearchValueIncluded && isYears
+        // state.isFiltered = hasAuthor || hasGenre || hasSearchValue ? true : false;
       });
+
     },
   },
 });
