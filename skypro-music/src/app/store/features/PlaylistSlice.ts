@@ -1,5 +1,4 @@
 import { DataTrack } from "@/app/api/trackAPI";
-import { authors } from "@/components/FilterWrapper/data";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TrackListType = {
@@ -75,14 +74,12 @@ const playlistSlice = createSlice({
         years: action.payload.years || state.filterOptions.years,
         genres: action.payload.genre || state.filterOptions.genres,
         searchValue: action.payload.searchValue || "",
-
-        // searchValue: action.payload.searchValue || state.filterOptions.searchValue,
       };
       state.filteredTracks = state.tracks.filter((track) => {
         const hasAuthor = state.filterOptions.authors.length !== 0;
         const hasYear = state.filterOptions.years.length !== 0;
         const hasGenre = state.filterOptions.genres.length !== 0;
-        //  const hasSearchValue = state.filterOptions.searchValue !== "";
+        const hasSearchValue = state.filterOptions.searchValue !== "";
 
         const isAuthors = hasAuthor ? state.filterOptions.authors.includes(track.author) : true
         const isGenres = hasGenre ? state.filterOptions.genres.includes(track.genre) : true
@@ -91,9 +88,9 @@ const playlistSlice = createSlice({
           track.name
             .toLowerCase()
             .includes(state.filterOptions.searchValue.toLowerCase());
-
+            
+        state.isFiltered = hasAuthor || hasGenre || hasSearchValue ? true : false;
         return isAuthors && isGenres && isSearchValueIncluded && isYears
-        // state.isFiltered = hasAuthor || hasGenre || hasSearchValue ? true : false;
       });
 
     },

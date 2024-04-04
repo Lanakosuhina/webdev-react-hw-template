@@ -15,7 +15,7 @@ type TracksLayoutType = {
   hasFilters: boolean,
 }
 
-export default function TracksLayout({tracks, title, hasSidebar, hasFilters}: TracksLayoutType) {
+export default function TracksLayout({ tracks, title, hasSidebar, hasFilters }: TracksLayoutType) {
 
   return (
     <>
@@ -24,10 +24,10 @@ export default function TracksLayout({tracks, title, hasSidebar, hasFilters}: Tr
         <CenterWrapper>
           <SearchBar />
           <Heading title={title} />
-          {hasFilters && <FilterWrapper />}
+          <>{hasFilters && <FilterWrapper />}</>
           <Centerblock tracks={tracks} />
         </CenterWrapper>
-        <Sidebar hasSidebar={hasSidebar} /> 
+        <Sidebar hasSidebar={hasSidebar} />
       </Main>
 
     </>

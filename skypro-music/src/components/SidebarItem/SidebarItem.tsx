@@ -19,7 +19,6 @@ export default function SidebarItem({ src, alt, categoryId }: SidebarItemProps) 
           width={250}
           height={150}
         />
-        {/* <div className={styles.sidebarTitle}>{category.name}</div> */}
       </Link>
     </div>
   );

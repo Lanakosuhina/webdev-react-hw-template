@@ -1,8 +1,4 @@
 import { CategoryType, getSidePlaylists } from "@/app/api/sidebarAPI";
-import { DataTrack } from "@/app/api/trackAPI";
-import { Centerblock } from "@/components/Centerblock";
-import { FilterWrapper } from "@/components/FilterWrapper";
-import { Heading } from "@/components/Heading";
 import TracksLayout from "@/components/TracksLayout/TracksLayout";
 import React from "react";
 
@@ -21,10 +17,5 @@ export default async function Category({ params }: CategoryPropsType) {
   }
   return (
     <TracksLayout tracks={sidePlaylists.items} title={sidePlaylists.name} hasSidebar={false} hasFilters={false} />
-
-    // <>
-    //   <Heading title={sidePlaylists.name} />
-    //   <Centerblock tracks={sidePlaylists.items} />
-    // </>
   )
 }

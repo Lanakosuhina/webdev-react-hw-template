@@ -19,19 +19,19 @@ interface StaredUser {
   username: string,
 }
 
-// export function getAllTracks(): Promise<DataTrack[]> {
-//   return fetch("https://skypro-music-api.skyeng.tech/catalog/track/all/", {
-//     method: "GET",
-//   })
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error("Ошибка")
-//       }
-//       return response.json()
+export async function getData(): Promise<DataTrack[]> {
+  return await fetch("https://skypro-music-api.skyeng.tech/catalog/track/all/", {
+    method: "GET",
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Ошибка при получении данных")
+      }
+      return response.json()
 
-//     })
-//     .catch((error: Error) => {
-//       alert(error.message)
-//     })
+    })
+    .catch((error: Error) => {
+      alert(error.message)
+    })
 
-// }
+}

@@ -1,10 +1,6 @@
-// import playlist01 from "../../../public/img/playlist01.png"
-// import playlist02 from "../../../public/img/playlist02.png"
-// import playlist03 from "../../../public/img/playlist03.png"
 import styles from "../Sidebar/Sidebar.module.css"
-import React, { Suspense, useEffect, useState } from "react"
+import React from "react"
 import SVG from "../SVG/SVG"
-import SidebarSkeleton from "../SidebarSkeleton/SidebarSkeleton"
 import { CategoryType, getPlaylists } from "@/app/api/sidebarAPI"
 
 type SidebarType = {
