@@ -1,7 +1,7 @@
 import styles from "./ModalBlock.module.css";
 
 type ModalBlockType = {
-  children: string
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function ModalBlock({ children }: ModalBlockType) {
