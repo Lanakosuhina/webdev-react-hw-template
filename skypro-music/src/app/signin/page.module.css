@@ -17,6 +17,11 @@
   border-right: none;
   border-bottom: 1px solid #d0cece;
   padding: 8px 1px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
 }
 
 .modalInput::-webkit-input-placeholder {
@@ -85,17 +90,23 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
 
-.modalBtnEnter a {
-  width: 100%;
-  height: 100%;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.05px;
   color: #ffffff;
+}
+
+.modalBtnErr {
+  width: 278px;
+  height: 52px;
+  background-color: #94a6be;
+  border-radius: 6px;
+  margin-top: 22px;
+  margin-bottom: 20px;
+  border: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -105,6 +116,13 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #ffffff;
 }
 
 .modalBtnEnter:active {
@@ -137,37 +155,35 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
 
-.modalBtnSignup a {
-  width: 100%;
-  height: 100%;
-  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.05px;
   color: #000000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
 .modalBtnSignup:hover {
   background-color: #f4f5f6;
+  color: black;
 }
 
 .modalBtnSignup:active {
   background-color: #d9d9d9;
+  color: black;
+}
+
+.modalBtnSignup a {
+  color: #000000;
 }
 
 .errorText {
-  color: red;
-  margin-top: 10px;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #F84D4D;
+  margin-top: 22px;
 }

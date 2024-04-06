@@ -34,7 +34,7 @@ export default function SignUp() {
       ) {
         setHasError(true);
         throw new Error(
-          "Введенные вами данные не корректны. Чтобы завершить регистрацию, введите данные корректно и повторите попытку."
+          "Введенные вами данные не корректны."
         );
       }
       register(registerData)
@@ -91,14 +91,23 @@ export default function SignUp() {
                 setRegisterData({ ...registerData, password: e.target.value })
               }}
             />
-            <button
-              className={styles.modalBtnSignup}
-              onClick={(e) => {
-                e.preventDefault();
-                setReg();
-              }}>
-              <Link href={'/signup'}>Зарегистрироваться</Link>
-            </button>
+            {hasError ? (
+              <>
+                <div className={styles.errorText}>{hasError}</div>
+                <button disabled className={styles.modalBtnErr}>
+                  Зарегистрироваться
+                </button>
+              </>
+            ) : (
+              <button
+                className={styles.modalBtnSignup} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setReg();
+                }}>
+                Зарегистрироваться
+              </button>
+            )}
           </Form>
         </ModalBlock>
       </Container>

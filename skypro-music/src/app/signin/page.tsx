@@ -1,4 +1,5 @@
 'use client'
+import "./globals.css";
 import { Container } from "@/components/Container";
 import Form from "@/components/Form/Form";
 import Input from "@/components/Input/Input";
@@ -34,7 +35,7 @@ export default function SignIn() {
       ) {
         setHasError(true);
         throw new Error(
-          "Введенные вами данные не корректны. Чтобы завершить регистрацию, введите данные корректно и повторите попытку."
+          "Введенные вами данные не корректны"
         );
       }
       login(loginData)
@@ -81,7 +82,7 @@ export default function SignIn() {
               {hasError ? (
                 <>
                   <div className={styles.errorText}>{hasError}</div>
-                  <button disabled className={styles.modalBtnEnter}>
+                  <button disabled className={styles.modalBtnErr}> 
                     Войти
                   </button>
                 </>
