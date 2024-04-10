@@ -11,7 +11,7 @@ export type DataTrack = {
   track_file: string,
 }
 
-interface StaredUser {
+export interface StaredUser {
   email: string,
   first_name: string,
   id: number,

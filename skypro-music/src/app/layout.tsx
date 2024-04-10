@@ -17,9 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <ReduxProvider>
-      <body className={montserrat.className}>{children}</body>
-      </ReduxProvider>
+        <ReduxProvider>
+          <body className={montserrat.className}>{children}</body>
+        </ReduxProvider>
     </html>
   );
 }

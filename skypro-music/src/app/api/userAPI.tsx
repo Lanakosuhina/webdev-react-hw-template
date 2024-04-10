@@ -6,35 +6,31 @@ export type UserDataType = {
   username?: string,
 }
 
-export function register({ email, password, username }: UserDataType) {
-  return fetch(`${user_URL}/signup/`, {
+export async function register({ email, password }: UserDataType) {
+  const response = await fetch(`${user_URL}/signup/`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
       password: password,
-      username: username,
+      username: email,
     }),
     headers: {
       // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
       "content-type": "application/json",
     },
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Ошибка при получении данных")
-      }
-      return response.json()
+  });
 
-    })
-    .catch((error: Error) => {
-      alert(error.message)
-    })
-    .then((json) => console.log(json));
+  const responseData = await response.json();
+  if (!response.ok) {
+    throw new Error(JSON.stringify(responseData))
+  }
+
+  return responseData;
 
 }
 
-export function login({ email, password }: UserDataType) {
-  return fetch(`${user_URL}/login/`, {
+export async function login({ email, password }: UserDataType) {
+  const response = await fetch(`${user_URL}/login/`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -44,21 +40,18 @@ export function login({ email, password }: UserDataType) {
       "content-type": "application/json",
     },
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Ошибка при получении данных")
-      }
-      return response.json()
 
-    })
-    .catch((error: Error) => {
-      alert(error.message)
-    })
-    .then((json) => console.log(json));
+  const responseData = await response.json();
+  if (!response.ok) {
+    throw new Error(JSON.stringify(responseData))
+  }
+
+  localStorage.responseData = JSON.stringify(responseData);
+  return responseData;
 }
 
-export function getToken({ email, password }: UserDataType) {
-  return fetch(`${user_URL}/token/`, {
+export async function getToken({ email, password }: UserDataType) {
+  const response = await fetch(`${user_URL}/token/`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -68,30 +61,33 @@ export function getToken({ email, password }: UserDataType) {
       "content-type": "application/json",
     },
   })
-    .then((response) => response.json()).then(response => {
-      if (!response.ok) {
-        throw new Error("Ошибка при получении данных")
-      }
-      return response.json()
 
-    })
-    .catch((error: Error) => {
-      alert(error.message)
-    })
-    .then((json) => console.log(json));
+  const token = await response.json();
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify(token))
+  }
+
+  localStorage.token = JSON.stringify(token)
+  return token;
 }
 
-export function refreshToken() {
-  return fetch(`${user_URL}/refresh/`, {
+export async function refreshToken({ token }: { token: string }) {
+  const response = await fetch(`${user_URL}/token/refresh/`, {
     method: "POST",
     body: JSON.stringify({
-      refresh:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MTA0NjUzMSwiaWF0IjoxNjkwOTYwMTMxLCJqdGkiOiI2YTFhODg4Zjg5NjY0NjgyYTBmYWYyNjk4ZjZiNjViZSIsInVzZXJfaWQiOjc5Mn0.idHYiVKZqSxPCpNIvYpFgEs6nRTJ3FuPS60RAKV8XC8",
+      refresh: token
     }),
     headers: {
       "content-type": "application/json",
     },
   })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+
+  const freshToken = await response.json();
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify(freshToken))
+  }
+
+  return freshToken.access;
 }

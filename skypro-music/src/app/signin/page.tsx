@@ -11,42 +11,57 @@ import classNames from "classnames";
 import modalLogo from "../../../public/img/logo_modal.png"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "../api/userAPI";
+import { getToken, login } from "../api/userAPI";
 import Link from "next/link";
+import { useAppDispatch } from "../hooks/hooks";
+import { setAuthState, setUser } from "../store/features/AuthSlice";
 
 type LoginType = {
   email: string,
   password: string,
 }
 
+type ErrorType = {
+  email: string[],
+  password: string[],
+  detail: string,
+}
+
 export default function SignIn() {
-  const router = useRouter()
-  const [hasError, setHasError] = useState(false);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [hasError, setHasError] = useState(false)
+  const [error, setError] = useState<ErrorType>({
+    email: [],
+    password: [],
+    detail: "",
+  });
+
   const [loginData, setLoginData] = useState<LoginType>({
     email: "",
     password: "",
   });
 
   function setLogin() {
-    try {
-      if (
-        loginData.email === "" ||
-        loginData.password === ""
-      ) {
+
+    setError({ email: [], password: [], detail: "" })
+    login({ email: loginData.email, password: loginData.password })
+      .then((data) => { // регистрируем
+        dispatch(setUser(data));
+      })
+      .then(() => // получаем токен
+        getToken({ email: loginData.email, password: loginData.password }
+        ))
+      .then((data) => { // обновляем состояние, переводим на треки
+        dispatch(setAuthState(data))
+        router.replace('/');
+      })
+      .catch((error) => {
         setHasError(true);
-        throw new Error(
-          "Введенные вами данные не корректны"
-        );
-      }
-      login(loginData)
-        .then(() => router.replace("/tracks"))
-    } catch (error: any) {
-      setHasError(error.message);
-      console.error(error);
-      setTimeout(() => {
-        setHasError(false);
-      }, 2000);
-    }
+        setError(JSON.parse(error.message));
+        setTimeout(() =>
+          setHasError(false), 2000)
+      })
   }
 
 
@@ -59,6 +74,11 @@ export default function SignIn() {
               <div className={styles.modalLogo}>
                 <Image src={modalLogo} alt="logo" width={140} height={21} />
               </div>
+              {hasError ?
+                <p className={styles.errorText}>
+                  {error.email}
+                </p>
+                : <p></p>}
               <Input
                 className={classNames(styles.modalInput, styles.login)}
                 type="text"
@@ -69,6 +89,11 @@ export default function SignIn() {
                   setLoginData({ ...loginData, email: e.target.value })
                 }}
               />
+              {hasError ?
+                <p className={styles.errorText}>
+                  {error.password}
+                </p>
+                : <p></p>}
               <Input
                 className={styles.modalInput}
                 type="password"
@@ -82,11 +107,11 @@ export default function SignIn() {
               {hasError ? (
                 <>
                   <div className={styles.errorText}>{hasError}</div>
-                  <button disabled className={styles.modalBtnErr}> 
+                  <button disabled className={styles.modalBtnErr}>
                     Войти
                   </button>
                 </>
-              ) : (
+              ) : (<>
                 <button
                   className={styles.modalBtnEnter}
                   onClick={(e) => {
@@ -95,10 +120,11 @@ export default function SignIn() {
                   }}>
                   Войти
                 </button>
-              )}
-              <button className={styles.modalBtnSignup}>
-                <Link href={'/signup'}>Зарегистрироваться</Link>
-              </button>
+                <button className={styles.modalBtnSignup}>
+                  <Link href={'/signup'}>Зарегистрироваться</Link>
+                </button>
+              </>)}
+
             </Form>
           </ModalBlock>
         </Container>

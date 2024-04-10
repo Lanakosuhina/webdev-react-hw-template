@@ -46,8 +46,10 @@ export default function Track({ track, tracks }: TrackType) {
               {album}
             </div>
           </div >
+          <div className={styles.trackLike}>
+          <SVG className={styles.trackLikeSvg} icon="icon-like" />
+          </div>
           <div>
-            <SVG className={styles.trackTimeSvg} icon="icon-sprite" />
             <span className={styles.trackTimeText}>{formatTime(duration_in_seconds)}</span>
           </div>
         </div>

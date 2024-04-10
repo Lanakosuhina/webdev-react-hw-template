@@ -18,34 +18,35 @@ type RegisterType = {
   password: string,
 }
 
+type ErrorType = {
+  email: string[],
+  password: string[],
+}
+
 export default function SignUp() {
   const router = useRouter()
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(false)
+  const [error, setError] = useState<ErrorType>({
+    email: [],
+    password: [],
+  });
   const [registerData, setRegisterData] = useState<RegisterType>({
     email: "",
     password: "",
   });
 
   function setReg() {
-    try {
-      if (
-        registerData.email === "" ||
-        registerData.password === ""
-      ) {
+    setError({ email: [], password: [] })
+    register({ email: registerData.email, password: registerData.password })
+      .then(() => {
+        router.replace('/signin');
+      })
+      .catch((error) => {
         setHasError(true);
-        throw new Error(
-          "Введенные вами данные не корректны."
-        );
-      }
-      register(registerData)
-        .then(() => router.replace("/signin"))
-    } catch (error: any) {
-      setHasError(error.message);
-      console.error(error);
-      setTimeout(() => {
-        setHasError(false);
-      }, 2000);
-    }
+        setError(JSON.parse(error.message));
+        setTimeout(() =>
+          setHasError(false), 2000)
+      })
   }
 
 
@@ -61,6 +62,11 @@ export default function SignUp() {
                 <Image src={modalLogo} alt="logo" width={140} height={21} />
               </div>
             </Link>
+            {hasError ?
+              <p className={styles.errorText}>
+                {error.email}
+              </p>
+              : <p></p>}
             <Input
               className={classNames(styles.modalInput, styles.login)}
               type="text"
@@ -71,6 +77,11 @@ export default function SignUp() {
                 setRegisterData({ ...registerData, email: e.target.value })
               }}
             />
+            {hasError ?
+              <p className={styles.errorText}>
+                {error.password}
+              </p>
+              : <p></p>}
             <Input
               className={styles.modalInput}
               type="password"
@@ -81,6 +92,11 @@ export default function SignUp() {
                 setRegisterData({ ...registerData, password: e.target.value })
               }}
             />
+            {hasError ?
+              <p className={styles.errorText}>
+                {error.password}
+              </p>
+              : <p></p>}
             <Input
               className={styles.modalInput}
               type="password"
@@ -100,7 +116,7 @@ export default function SignUp() {
               </>
             ) : (
               <button
-                className={styles.modalBtnSignup} 
+                className={styles.modalBtnSignup}
                 onClick={(e) => {
                   e.preventDefault();
                   setReg();

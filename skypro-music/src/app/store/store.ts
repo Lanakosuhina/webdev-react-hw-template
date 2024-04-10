@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { PlaylistReducer } from "./features/PlaylistSlice";
+import { authReducer } from "./features/AuthSlice";
 
 export const store = () => {
   return configureStore({
     reducer: combineReducers ({
       playlist: PlaylistReducer,
+      auth: authReducer,
     }),
   })
 }
