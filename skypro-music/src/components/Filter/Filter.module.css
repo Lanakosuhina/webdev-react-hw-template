@@ -10,10 +10,6 @@
   color: #ffffff;
 }
 
-.filterButton:not(:last-child) {
-  margin-right: 10px;
-}
-
 .btnText:hover {
   border-color: #d9b6ff;
   color: #d9b6ff;
@@ -76,4 +72,16 @@
 .wrap::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
+}
+
+.counter {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 20px;
+  background-color: #ad61ff;
+  text-align: center;
+  padding: 3px;
+  top: -8px;
+  right: -7px;
 }

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент полоса прогресса корректно отрисовывает разметку с начальными значениями 1`] = `
+<input
+  className="styledProgressInput"
+  max={100}
+  min={0}
+  onChange={[Function]}
+  step={0.01}
+  type="range"
+  value={0}
+/>
+`;

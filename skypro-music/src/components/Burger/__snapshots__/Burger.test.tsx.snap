@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент бургер-меню корректно рендериться 1`] = `
+<button
+  className="navBurger"
+  onClick={[MockFunction]}
+>
+  <span
+    className="burgerLine"
+  />
+  <span
+    className="burgerLine"
+  />
+  <span
+    className="burgerLine"
+  />
+</button>
+`;

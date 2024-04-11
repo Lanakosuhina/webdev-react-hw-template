@@ -9,7 +9,6 @@ type ProgressBarType = {
 }
 
 export default function ProgressBar({ currentProgress, duration, handleDuration, setCurrentProgress }: ProgressBarType) {
-  // const duration = 230;
   if (isNaN(duration)) {
     duration = 0;
   }
