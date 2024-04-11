@@ -8,7 +8,7 @@ import { useAppSelector } from "@/app/hooks/hooks"
 export default function Menu() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const authState = useAppSelector((state) => state.auth.authState);
-  <div>Вы сейчас {authState ? "вошли" : "вышли"}</div>;
+ //  <div>Вы сейчас {authState ? "вошли" : "вышли"}</div>;
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function Menu() {
             </Link>
           </li>
           <li className={styles.menuItem}>
-            <Link href={"/"} className={styles.menuLink}>
+            <Link href={"/favorites"} className={styles.menuLink}>
               Мой плейлист
             </Link>
           </li>

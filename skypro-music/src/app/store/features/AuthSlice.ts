@@ -38,14 +38,6 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<StaredUser>) => {
       state.user = action.payload;
     },
-    // setUser: (state, action: PayloadAction<StaredUser[] | null>) => {
-    //   state.user = action.payload;
-    //   localStorage.setItem('user', JSON.stringify(action.payload));
-    // },
-    // logout: (state) => {
-    //   state.user = null;
-    //   localStorage.removeItem('user');
-    // },
   },
 });
 

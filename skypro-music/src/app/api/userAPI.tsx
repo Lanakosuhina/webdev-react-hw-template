@@ -63,12 +63,10 @@ export async function getToken({ email, password }: UserDataType) {
   })
 
   const token = await response.json();
-
   if (!response.ok) {
-    throw new Error(JSON.stringify(token))
+    throw new Error(JSON.stringify(token));
   }
-
-  localStorage.token = JSON.stringify(token)
+  localStorage.setItem("userToken", JSON.stringify(token));
   return token;
 }
 
