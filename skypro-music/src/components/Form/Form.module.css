@@ -1,7 +1,7 @@
 
 .modalForm {
   width: 366px;
-  height: 455px;
+  height: max-content;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;

@@ -21,7 +21,7 @@ export default function Favourite() {
           localStorage.token = JSON.stringify(token);
         }
 
-        const data = await getAllFavourites({ accessToken: token.access });
+        const data = await getAllFavourites({ token });
         dispatch(setFavouriteTracks(data));
 
       } catch (error) {

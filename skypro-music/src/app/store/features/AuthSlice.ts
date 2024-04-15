@@ -7,7 +7,7 @@ type AuthStateType = {
   token: TokenType,
 };
 
-type TokenType = {
+export type TokenType = {
   refresh: string,
   access: string,
 }
