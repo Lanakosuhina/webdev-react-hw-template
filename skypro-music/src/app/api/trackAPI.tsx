@@ -55,7 +55,7 @@ export async function getAllFavourites({ token }: { token: string }) {
 
 export async function likeTrack({ token, id }: {
   token: string,
-  id: string
+  id: number,
 }) {
   const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
     method: "POST",
@@ -69,13 +69,13 @@ export async function likeTrack({ token, id }: {
   if (!response.ok) {
     throw new Error(JSON.stringify(responseData))
   }
-  return token;
+  return responseData;
 
 }
 
 export async function dislikeTrack({ token, id }: {
   token: string,
-  id: string
+  id: number,
 }) {
   const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
     method: "DELETE",

@@ -3,9 +3,11 @@ type SVGType = {
   icon: string;
 }
 export default function SVG({ className, icon }: SVGType) {
+
   return (
-    <svg className={className}>
-      <use xlinkHref={`/img/icon/sprite.svg#${icon}`}></use>
-    </svg>
+    <svg
+      className={className}>
+        <use xlinkHref={`/img/icon/sprite.svg#${icon}`}></use>
+    </svg >
   );
 }

@@ -30,7 +30,7 @@ export default function Favourite() {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <TracksLayout tracks={favouriteTracks} title="Мои треки" hasSidebar={true} hasFilters={true} />

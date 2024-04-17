@@ -61,6 +61,12 @@
   fill: transparent;
   stroke: #4e4e4e;
 }
+.trackTitleSvgActive {
+  width: 18px;
+  height: 17px;
+  fill: #4e4e4e;
+  stroke: #4e4e4e;
+}
 
 .trackTitleLink {
   font-style: normal;

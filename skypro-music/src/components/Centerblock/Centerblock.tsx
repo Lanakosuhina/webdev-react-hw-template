@@ -23,7 +23,7 @@ export default function Centerblock({ tracks }: CenterblockProps) {
 
   useEffect(() => {
     setPlaylist((prev) => (prev = isFiltered ? filteredTracks : tracks));
-  }, [isFiltered, filteredTracks]);
+  }, [isFiltered, filteredTracks, tracks]);
 
   return (
     <>

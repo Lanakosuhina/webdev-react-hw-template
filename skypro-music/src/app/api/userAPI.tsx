@@ -46,11 +46,10 @@ export async function login({ email, password }: UserDataType) {
     throw new Error(JSON.stringify(responseData))
   }
 
-  localStorage.responseData = JSON.stringify(responseData);
   return responseData;
 }
 
-export async function getToken({ email, password }: UserDataType) {
+export async function getTokens({ email, password }: UserDataType) {
   const response = await fetch(`${user_URL}/token/`, {
     method: "POST",
     body: JSON.stringify({
@@ -66,7 +65,6 @@ export async function getToken({ email, password }: UserDataType) {
   if (!response.ok) {
     throw new Error(JSON.stringify(token));
   }
-  localStorage.setItem("userToken", JSON.stringify(token));
   return token;
 }
 

@@ -11,10 +11,10 @@ import classNames from "classnames";
 import modalLogo from "../../../public/img/logo_modal.png"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getToken, login } from "../api/userAPI";
+import { getTokens, login } from "../api/userAPI";
 import Link from "next/link";
 import { useAppDispatch } from "../hooks/hooks";
-import { setAuthState, setUser } from "../store/features/AuthSlice";
+import { setTokens, setUser } from "../store/features/AuthSlice";
 
 type LoginType = {
   email: string,
@@ -47,13 +47,15 @@ export default function SignIn() {
     setError({ email: [], password: [], detail: "" })
     login({ email: loginData.email, password: loginData.password })
       .then((data) => { // регистрируем
+        console.log(data);
         dispatch(setUser(data));
       })
       .then(() => // получаем токен
-        getToken({ email: loginData.email, password: loginData.password }
+        getTokens({ email: loginData.email, password: loginData.password }
         ))
       .then((data) => { // обновляем состояние, переводим на треки
-        dispatch(setAuthState(data))
+        console.log(data);
+        dispatch(setTokens(data))
         router.replace('/');
       })
       .catch((error) => {
