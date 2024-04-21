@@ -3,10 +3,10 @@ import styles from "./Track.module.css";
 import SVG from "../SVG/SVG";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { DataTrack, dislikeTrack, getAllFavourites, getData, likeTrack } from "@/app/api/trackAPI";
-import { setCurrentTrack, setFavouriteTracks, setTracks } from "@/app/store/features/PlaylistSlice";
+import { setCurrentTrack, setFavouriteTracks, setTracks, toggleLike } from "@/app/store/features/PlaylistSlice";
 import formatTime from "@/app/libs/formatTime";
-import { getTokens } from "@/app/api/userAPI";
 import { useRouter } from "next/navigation";
+import classNames from "classnames";
 
 type TrackType = {
   track: DataTrack,
@@ -24,23 +24,21 @@ export default function Track({ track, tracks }: TrackType) {
   const isLiked = !!(track.stared_user ?? []).find(({ id }) => id === user?.id)
 
 
-  function toggleLike(event: any) {
+  function handleLike(event: any) {
     event.stopPropagation();
 
-    if (tokens.access === undefined) {
+    if (tokens.access === '') {
       alert("Пройдите авторизацию");
       return router.replace("/signin")
     }
+
+    dispatch(toggleLike())
     console.log(isLiked);
     isLiked
       ? (
-        dislikeTrack({ token: tokens.access, id: track.id })
-          .then(() => getData())
-          .then((response) => dispatch(setTracks(response)))
+        dislikeTrack({ accessToken: tokens.access, id: track.id })
       ) : (
-        likeTrack({ token: tokens.access, id: track.id })
-        .then(() => getData())
-        .then((response) => dispatch(setTracks(response)))
+        likeTrack({ accessToken: tokens.access, id: track.id })
       );
   }
 
@@ -73,9 +71,11 @@ export default function Track({ track, tracks }: TrackType) {
               {album}
             </div>
           </div >
-          <div className={styles.trackLike} onClick={toggleLike} >
-            {isLiked ? <SVG className={styles.trackLikeSvgActive} icon="icon-like" />
-              : <SVG className={styles.trackLikeSvg} icon="icon-dislike" />}
+          <div className={styles.trackLike} onClick={handleLike} >
+            <SVG
+              className={classNames(
+                isLiked ? styles.trackLikeSvgActive : styles.trackLikeSvg
+              )} icon="icon-like" />
           </div>
           <div>
             <span className={styles.trackTimeText}>{formatTime(duration_in_seconds)}</span>

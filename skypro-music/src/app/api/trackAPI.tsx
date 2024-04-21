@@ -1,3 +1,5 @@
+import { api } from "./api"
+
 export type DataTrack = {
   album: string,
   author: string,
@@ -36,11 +38,11 @@ export async function getData(): Promise<DataTrack[]> {
 
 }
 
-export async function getAllFavourites({ token }: { token: string }) {
+export async function getAllFavourites({ accessToken }: { accessToken: string }) {
   const response = await fetch("https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/", {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   })
 
@@ -53,14 +55,14 @@ export async function getAllFavourites({ token }: { token: string }) {
 
 }
 
-export async function likeTrack({ token, id }: {
-  token: string,
+export async function likeTrack({ accessToken, id }: {
+  accessToken: string,
   id: number,
 }) {
-  const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
+  const response = await api(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   })
 
@@ -73,14 +75,14 @@ export async function likeTrack({ token, id }: {
 
 }
 
-export async function dislikeTrack({ token, id }: {
-  token: string,
+export async function dislikeTrack({ accessToken, id }: {
+  accessToken: string,
   id: number,
 }) {
-  const response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
+  const response = await api(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   })
 
@@ -89,6 +91,6 @@ export async function dislikeTrack({ token, id }: {
   if (!response.ok) {
     throw new Error(JSON.stringify(responseData))
   }
-  return token;
+  return accessToken;
 
 }

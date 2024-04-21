@@ -16,6 +16,11 @@ export default async function Category({ params }: CategoryPropsType) {
     throw new Error(error.message);
   }
   return (
-    <TracksLayout tracks={sidePlaylists.items} title={sidePlaylists.name} hasSidebar={false} hasFilters={false} />
+    <TracksLayout 
+    tracks={sidePlaylists.items} 
+    title={sidePlaylists.name} 
+    hasSidebar={false} 
+    hasFilters={false}
+    favouriteList={false} />
   )
 }

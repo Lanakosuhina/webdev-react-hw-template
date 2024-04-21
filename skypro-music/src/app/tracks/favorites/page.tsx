@@ -1,6 +1,6 @@
 'use client'
 import { getAllFavourites } from "@/app/api/trackAPI";
-import { getToken } from "@/app/api/userAPI";
+import { getTokens } from "@/app/api/userAPI";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { setFavouriteTracks } from "@/app/store/features/PlaylistSlice";
 import TracksLayout from "@/components/TracksLayout/TracksLayout";
@@ -17,11 +17,11 @@ export default function Favourite() {
         let token = localStorage.token ? JSON.parse(localStorage.token) : null;
 
         if (!token) {
-          token = await getToken({ email: '', password: '' });
+          token = await getTokens({ email: '', password: '' });
           localStorage.token = JSON.stringify(token);
         }
 
-        const data = await getAllFavourites({ token });
+        const data = await getAllFavourites({ accessToken: token });
         dispatch(setFavouriteTracks(data));
 
       } catch (error) {
@@ -33,6 +33,11 @@ export default function Favourite() {
   }, [dispatch]);
 
   return (
-    <TracksLayout tracks={favouriteTracks} title="Мои треки" hasSidebar={true} hasFilters={true} />
+    <TracksLayout 
+    tracks={favouriteTracks} 
+    title="Мои треки" 
+    hasSidebar={true} 
+    hasFilters={true}
+    favouriteList={true} />
   )
 }

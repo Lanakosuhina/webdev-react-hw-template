@@ -11,7 +11,7 @@ export default function ReduxProvider({
 }) {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) { // если стора нет, то мы его создадим\\ чтобы при ререндере store каждый раз не обновлялся
-    storeRef.current = store();
+    storeRef.current = store;
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;

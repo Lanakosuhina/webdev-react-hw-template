@@ -55,17 +55,18 @@
   margin-right: 17px;
 }
 
+.trackTitleSvgActive {
+  width: 18px;
+  height: 17px;
+  fill: #ad61ff;
+  stroke: #ad61ff;
+}
 .trackTitleSvg {
   width: 18px;
   height: 17px;
   fill: transparent;
-  stroke: #4e4e4e;
-}
-.trackTitleSvgActive {
-  width: 18px;
-  height: 17px;
-  fill: #4e4e4e;
-  stroke: #4e4e4e;
+  stroke: #acacac;
+  cursor: pointer;
 }
 
 .trackTitleLink {
