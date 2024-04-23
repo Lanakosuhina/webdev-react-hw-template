@@ -2,8 +2,8 @@
 import styles from "./Track.module.css";
 import SVG from "../SVG/SVG";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
-import { DataTrack, dislikeTrack, getAllFavourites, getData, likeTrack } from "@/app/api/trackAPI";
-import { setCurrentTrack, setFavouriteTracks, setTracks, toggleLike } from "@/app/store/features/PlaylistSlice";
+import { DataTrack, dislikeTrack, likeTrack } from "@/app/api/trackAPI";
+import { setCurrentTrack, setLike } from "@/app/store/features/PlaylistSlice";
 import formatTime from "@/app/libs/formatTime";
 import { useRouter } from "next/navigation";
 import classNames from "classnames";
@@ -32,7 +32,7 @@ export default function Track({ track, tracks }: TrackType) {
       return router.replace("/signin")
     }
 
-    dispatch(toggleLike())
+    dispatch(setLike(isLiked))
     console.log(isLiked);
     isLiked
       ? (
@@ -78,8 +78,7 @@ export default function Track({ track, tracks }: TrackType) {
               )} icon="icon-like" />
           </div>
           <div>
-            <span className={styles.trackTimeText}>{formatTime(duration_in_seconds)}</span>
-          </div>
+            <span className={styles.trackTimeText}>{formatTime(duration_in_seconds)}</span></div>
         </div>
       </div >
     </>

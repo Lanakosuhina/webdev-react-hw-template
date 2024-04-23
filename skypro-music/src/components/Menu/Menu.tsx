@@ -3,13 +3,11 @@ import Link from "next/link"
 import styles from "../Menu/Menu.module.css"
 import { Burger } from "../Burger"
 import { useState } from "react"
-import { useAppSelector } from "@/app/hooks/hooks"
+import { useRouter } from "next/navigation"
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const authState = useAppSelector((state) => state.auth.authState);
- //  <div>Вы сейчас {authState ? "вошли" : "вышли"}</div>;
-
+  const router = useRouter();
   return (
     <>
       <Burger onClick={() => setIsOpen(prev => !prev)} />
@@ -20,21 +18,15 @@ export default function Menu() {
               Главное
             </Link>
           </li>
-          <li className={styles.menuItem}>
-            <Link href={"/favorites"} className={styles.menuLink}>
+          <li className={styles.menuItem} onClick={() => router.push('/tracks/favorites')}>
+            <Link href={'/tracks/favorites'} className={styles.menuLink}>
               Мой плейлист
             </Link>
           </li>
           <li className={styles.menuItem}>
-            {authState 
-            ? <Link href={'/signin'} className={styles.menuLink}>
+            <Link href={'/signin'} className={styles.menuLink}>
               Войти
-            </Link> 
-            : <Link href={'/tracks'} className={styles.menuLink}>
-              Выйти
             </Link>
-            }
-
           </li >
         </ul >
       </div >

@@ -17,6 +17,7 @@ type TrackListType = {
   isFiltered: boolean,
   favouriteTracks: DataTrack[] | [],
   isLiked: boolean,
+  likedTracks: [],
 }
 
 type SetCurrentTrack = {
@@ -40,6 +41,7 @@ const initialState: TrackListType = {
   isFiltered: false,
   favouriteTracks: [],
   isLiked: false,
+  likedTracks: [],
 };
 
 const playlistSlice = createSlice({
@@ -100,8 +102,8 @@ const playlistSlice = createSlice({
     setFavouriteTracks: (state, action: PayloadAction<DataTrack[]>) => {
       state.favouriteTracks = action.payload;
     },
-    toggleLike: (state) => {
-      state.isLiked = !state.isLiked;
+    setLike: (state, action: PayloadAction<boolean>) => {
+      state.isLiked = action.payload;
     },
   },
 });
@@ -128,6 +130,6 @@ export const {
   prevTrack,
   setFilteredTracks,
   setFavouriteTracks,
-  toggleLike,
+  setLike,
 } = playlistSlice.actions;
 export const PlaylistReducer = playlistSlice.reducer;
