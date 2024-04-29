@@ -1,43 +1,32 @@
 'use client'
 import { getAllFavourites } from "@/app/api/trackAPI";
 import { getTokens } from "@/app/api/userAPI";
-import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { setFavouriteTracks } from "@/app/store/features/PlaylistSlice";
 import TracksLayout from "@/components/TracksLayout/TracksLayout";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Favourite() {
-
-  const favouriteTracks = useAppSelector((store) => store.playlist.favouriteTracks)
-  const dispatch = useAppDispatch();
+  const [favouriteTracks, setFavouriteTracks] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let token = localStorage.token ? JSON.parse(localStorage.token) : null;
 
-        if (!token) {
-          token = await getTokens({ email: '', password: '' });
-          localStorage.token = JSON.stringify(token);
-        }
-
-        const data = await getAllFavourites({ accessToken: token });
-        dispatch(setFavouriteTracks(data));
-
-      } catch (error) {
+    let token = localStorage.token ? JSON.parse(localStorage.token) : null;
+    getAllFavourites({ accessToken: token })
+      .then((res) => {
+        console.log(res);
+        setFavouriteTracks(res)
+      })
+      .catch((error) => {
         console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [dispatch]);
+      })
+  }, []);
 
   return (
-    <TracksLayout 
-    tracks={favouriteTracks} 
-    title="Мои треки" 
-    hasSidebar={true} 
-    hasFilters={true}
-    favouriteList={true} />
+    <TracksLayout
+      tracks={favouriteTracks}
+      title="Мои треки"
+      hasSidebar={false}
+      hasFilters={false}
+     />
   )
 }

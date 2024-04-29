@@ -55,12 +55,6 @@
   margin-right: 17px;
 }
 
-.trackTitleSvgActive {
-  width: 18px;
-  height: 17px;
-  fill: #ad61ff;
-  stroke: #ad61ff;
-}
 .trackTitleSvg {
   width: 18px;
   height: 17px;
@@ -122,6 +116,14 @@
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
+}
+
+.trackLikeSvgActive {
+  width: 14px;
+  height: 12px;
+  margin-right: 17px;
+  fill: #ad61ff;
+  stroke: #ad61ff;
 }
 
 .trackTimeText {

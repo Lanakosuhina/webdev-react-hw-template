@@ -18,7 +18,7 @@ export default function Menu() {
               Главное
             </Link>
           </li>
-          <li className={styles.menuItem} onClick={() => router.push('/tracks/favorites')}>
+          <li className={styles.menuItem}>
             <Link href={'/tracks/favorites'} className={styles.menuLink}>
               Мой плейлист
             </Link>

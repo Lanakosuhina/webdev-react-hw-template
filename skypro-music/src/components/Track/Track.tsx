@@ -3,10 +3,11 @@ import styles from "./Track.module.css";
 import SVG from "../SVG/SVG";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { DataTrack, dislikeTrack, likeTrack } from "@/app/api/trackAPI";
-import { setCurrentTrack, setLike } from "@/app/store/features/PlaylistSlice";
+import { setCurrentTrack, setFavouriteTracks } from "@/app/store/features/PlaylistSlice";
 import formatTime from "@/app/libs/formatTime";
 import { useRouter } from "next/navigation";
 import classNames from "classnames";
+import { useState } from "react";
 
 type TrackType = {
   track: DataTrack,
@@ -16,13 +17,12 @@ type TrackType = {
 export default function Track({ track, tracks }: TrackType) {
   const dispatch = useAppDispatch();
   const isPlaying = useAppSelector((store) => store.playlist.isPlaying)
-  const currentTrack = useAppSelector((store) => store.playlist.currentTrack)
+  const {currentTrack, favouriteTracks} = useAppSelector((store) => store.playlist)
   const { name, album, author, duration_in_seconds } = track;
   const router = useRouter()
   const tokens = useAppSelector((store) => store.auth.tokens)
   const user = useAppSelector((store) => store.auth.user)
-  const isLiked = !!(track.stared_user ?? []).find(({ id }) => id === user?.id)
-
+  const [isLiked, setIsLiked] = useState(!!(track.stared_user ?? []).find(({ id }) => id === user?.id));
 
   function handleLike(event: any) {
     event.stopPropagation();
@@ -32,13 +32,23 @@ export default function Track({ track, tracks }: TrackType) {
       return router.replace("/signin")
     }
 
-    dispatch(setLike(isLiked))
-    console.log(isLiked);
     isLiked
       ? (
         dislikeTrack({ accessToken: tokens.access, id: track.id })
+        .then(() => {
+          setIsLiked(false);
+        })
+        .catch((error) => {
+          console.error(error.message)
+        })
       ) : (
         likeTrack({ accessToken: tokens.access, id: track.id })
+        .then(() => {
+          setIsLiked(true);
+        })
+        .catch((error) => {
+          console.error(error.message)
+        })
       );
   }
 
