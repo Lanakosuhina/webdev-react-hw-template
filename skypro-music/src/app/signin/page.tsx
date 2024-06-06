@@ -1,5 +1,5 @@
-import ButtonEnter from "@/components/ButtonEnter/ButtonEnter";
-import ButtonSignUp from "@/components/ButtonSignUp/ButtonSignUp";
+'use client'
+import "./globals.css";
 import { Container } from "@/components/Container";
 import Form from "@/components/Form/Form";
 import Input from "@/components/Input/Input";
@@ -8,37 +8,129 @@ import { Wrapper } from "@/components/Wrapper";
 import Image from "next/image";
 import styles from "./page.module.css"
 import classNames from "classnames";
-import Link from "next/link";
 import modalLogo from "../../../public/img/logo_modal.png"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { getTokens, login } from "../api/userAPI";
+import Link from "next/link";
+import { useAppDispatch } from "../hooks/hooks";
+import { setTokens, setUser } from "../store/features/AuthSlice";
+
+type LoginType = {
+  email: string,
+  password: string,
+}
+
+type ErrorType = {
+  email: string[],
+  password: string[],
+  detail: string,
+}
 
 export default function SignIn() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [hasError, setHasError] = useState(false)
+  const [error, setError] = useState<ErrorType>({
+    email: [],
+    password: [],
+    detail: "",
+  });
+
+  const [loginData, setLoginData] = useState<LoginType>({
+    email: "",
+    password: "",
+  });
+
+  function setLogin() {
+
+    setError({ email: [], password: [], detail: "" })
+    login({ email: loginData.email, password: loginData.password })
+      .then((data) => { // регистрируем
+        console.log(data);
+        dispatch(setUser(data));
+      })
+      .then(() => // получаем токен
+        getTokens({ email: loginData.email, password: loginData.password }
+        ))
+      .then((data) => { // обновляем состояние, переводим на треки
+        console.log(data);
+        dispatch(setTokens(data))
+        router.replace('/');
+      })
+      .catch((error) => {
+        setHasError(true);
+        setError(JSON.parse(error.message));
+        setTimeout(() =>
+          setHasError(false), 2000)
+      })
+  }
+
+
   return (
-    <Wrapper>
-      <Container>
-        <ModalBlock>
-          <Form>
-            <Link href={"/"}>
-            <div className={styles.modalLogo}>
-              <Image src={modalLogo} alt="logo" width={140} height={21} />
-            </div>
-          </Link>
-          <Input
-            className={classNames(styles.modalInput, styles.login)}
-            type="text"
-            name="login"
-            placeholder="Почта"
-          />
-          <Input
-            className={styles.modalInput}
-            type="password"
-            name="password"
-            placeholder="Пароль"
-          />
-          <ButtonEnter text="Войти" />
-          <ButtonSignUp text="Зарегистрироваться" />
-        </Form>
-      </ModalBlock>
-    </Container>
-  </Wrapper >
+    <>
+      <Wrapper>
+        <Container>
+          <ModalBlock>
+            <Form>
+              <div className={styles.modalLogo}>
+                <Image src={modalLogo} alt="logo" width={140} height={21} />
+              </div>
+              {hasError ?
+                <p className={styles.errorText}>
+                  {error.email}
+                </p>
+                : <p></p>}
+              <Input
+                className={classNames(styles.modalInput, styles.login)}
+                type="text"
+                name="login"
+                placeholder="Почта"
+                value={loginData.email}
+                onChange={(e) => {
+                  setLoginData({ ...loginData, email: e.target.value })
+                }}
+              />
+              {hasError ?
+                <p className={styles.errorText}>
+                  {error.password}
+                </p>
+                : <p></p>}
+              <Input
+                className={styles.modalInput}
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                value={loginData.password}
+                onChange={(e) => {
+                  setLoginData({ ...loginData, password: e.target.value })
+                }}
+              />
+              {hasError ? (
+                <>
+                  <div className={styles.errorText}>{hasError}</div>
+                  <button disabled className={styles.modalBtnErr}>
+                    Войти
+                  </button>
+                </>
+              ) : (<>
+                <button
+                  className={styles.modalBtnEnter}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setLogin();
+                  }}>
+                  Войти
+                </button>
+                <button className={styles.modalBtnSignup}>
+                  <Link href={'/signup'}>Зарегистрироваться</Link>
+                </button>
+              </>)}
+
+            </Form>
+          </ModalBlock>
+        </Container>
+      </Wrapper >
+    </>
   )
 }

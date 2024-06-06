@@ -26,7 +26,7 @@ button,
 ul li {
   list-style: none;
 }
-
+/* 
 @font-face {
   font-family: "StratosSkyeng";
   src: local("StratosSkyeng"), local("StratosSkyeng"),
@@ -36,6 +36,10 @@ ul li {
   font-weight: 400;
   font-style: normal;
 }
+
+@import url('../../../fonts/StratosSkyeng.woff2');
+@import url('../../../fonts/StratosSkyeng.woff');
+@import url('../fonts/StratosSkyeng.ttf'); */
 
 html,
 body {

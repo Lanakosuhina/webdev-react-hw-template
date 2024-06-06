@@ -1,3 +1,5 @@
+import { api } from "./api"
+
 export type DataTrack = {
   album: string,
   author: string,
@@ -11,7 +13,7 @@ export type DataTrack = {
   track_file: string,
 }
 
-interface StaredUser {
+export interface StaredUser {
   email: string,
   first_name: string,
   id: number,
@@ -33,5 +35,62 @@ export async function getData(): Promise<DataTrack[]> {
     .catch((error: Error) => {
       alert(error.message)
     })
+
+}
+
+export async function getAllFavourites({ accessToken }: { accessToken: string }) {
+  const response = await fetch("https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+  const responseData = response.json()
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify(responseData))
+  }
+  return responseData;
+
+}
+
+export async function likeTrack({ accessToken, id }: {
+  accessToken: string,
+  id: number,
+}) {
+  const response = await api(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify(responseData))
+  }
+  return responseData;
+
+}
+
+export async function dislikeTrack({ accessToken, id }: {
+  accessToken: string,
+  id: number,
+}) {
+  const response = await api(`https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+  const responseData = await response.json()
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify(responseData))
+  }
+  return accessToken;
 
 }

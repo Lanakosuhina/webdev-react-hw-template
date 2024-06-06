@@ -59,7 +59,8 @@
   width: 18px;
   height: 17px;
   fill: transparent;
-  stroke: #4e4e4e;
+  stroke: #acacac;
+  cursor: pointer;
 }
 
 .trackTitleLink {
@@ -109,12 +110,20 @@
   color: #696969;
 }
 
-.trackTimeSvg {
+.trackLikeSvg {
   width: 14px;
   height: 12px;
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
+}
+
+.trackLikeSvgActive {
+  width: 14px;
+  height: 12px;
+  margin-right: 17px;
+  fill: #ad61ff;
+  stroke: #ad61ff;
 }
 
 .trackTimeText {
@@ -125,25 +134,6 @@
   text-align: right;
   color: #696969;
 }
-
-/* .playingDot {
- position: fixed;
-  width: 35px;
-  height: 20px;
-  
-  position: relative;
-  width: 20px;
-  height: 20px;
-  background-color: #b672ff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 1px 1px #0000001a;
-  animation: bubble_out 1s ease-in-out infinite both; 
-  --c: linear-gradient(#b672ff 0 0);
-  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
-  background-size: 10px 50%;
-  background-repeat: no-repeat;
-  animation: pulsing 1s infinite linear alternate;
-} */
 
 .trackTitleImageInner {
   position: relative;

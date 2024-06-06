@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { PlaylistReducer } from "./features/PlaylistSlice";
+import { authReducer } from "./features/AuthSlice";
 
-export const store = () => {
-  return configureStore({
-    reducer: combineReducers ({
-      playlist: PlaylistReducer,
-    }),
-  })
-}
+export const store = configureStore({
+  reducer: combineReducers({
+    playlist: PlaylistReducer,
+    auth: authReducer,
+  }),
+})
 
 // типо нашего хранилища
-export type AppStore = ReturnType<typeof store>
+export type AppStore = typeof store
 
 // С помощью ReturnType<typeof store.getState> мы получаем тип состояния, возвращаемого нашим хранилищем.
 export type RootState = ReturnType<AppStore["getState"]>;

@@ -15,6 +15,13 @@ type TrackListType = {
   };
   filteredTracks: [] | DataTrack[],
   isFiltered: boolean,
+  favouriteTracks: DataTrack[] | [],
+  isLiked: boolean,
+}
+
+type setFavouriteTracks = {
+  favouriteTracks: DataTrack[] | [],
+  isLiked: boolean,
 }
 
 type SetCurrentTrack = {
@@ -36,6 +43,8 @@ const initialState: TrackListType = {
   },
   filteredTracks: [],
   isFiltered: false,
+  favouriteTracks: [],
+  isLiked: false,
 };
 
 const playlistSlice = createSlice({
@@ -88,11 +97,13 @@ const playlistSlice = createSlice({
           track.name
             .toLowerCase()
             .includes(state.filterOptions.searchValue.toLowerCase());
-            
+
         state.isFiltered = hasAuthor || hasGenre || hasSearchValue ? true : false;
         return isAuthors && isGenres && isSearchValueIncluded && isYears
       });
-
+    },
+    setFavouriteTracks: (state, action: PayloadAction<setFavouriteTracks>) => {
+      state.favouriteTracks = action.payload.favouriteTracks;
     },
   },
 });
@@ -118,5 +129,6 @@ export const {
   toggleIsPlaying,
   prevTrack,
   setFilteredTracks,
+  setFavouriteTracks,
 } = playlistSlice.actions;
 export const PlaylistReducer = playlistSlice.reducer;

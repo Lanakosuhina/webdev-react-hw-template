@@ -1,7 +1,7 @@
 import styles from "./Form.module.css";
 
 type FormType = {
-  children: string
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function Form({ children }: FormType) {
